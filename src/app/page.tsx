@@ -21,7 +21,9 @@ export default function Home() {
       setUserInput("");
     } else if (event.key.length === 1) {
       // This check is to ensure that only printable characters are added
-      setUserInput(userInput + event.key);
+      if (event.key != " ") {
+        setUserInput(userInput + event.key);
+      }
     }
   };
 
@@ -51,24 +53,50 @@ export default function Home() {
           {wordList.map((word, index) => {
             if (index < currentWordIndex) {
               return (
-                <span key={index} style={{ color: "green" }}>
+                <span key={index} style={{ color: "black" }}>
                   {word + " "}
                 </span>
               );
-            } else if (index == currentWordIndex) {
+            } else if (index === currentWordIndex) {
               return (
                 <span key={index}>
-                  <span style={{ textDecoration: "underline" }}>{word}</span>{" "}
+                  <span>
+                    {word.split("").map((char, i) => {
+                      if (userInput.substring(i, i + 1) === "") {
+                        return (
+                          <span key={i} style={{ color: "gray" }}>
+                            {char}
+                          </span>
+                        );
+                      } else if (
+                        word.substring(i, i + 1) ===
+                        userInput.substring(i, i + 1)
+                      ) {
+                        return (
+                          <span key={i} style={{ color: "black" }}>
+                            {char}
+                          </span>
+                        );
+                      }
+                      return (
+                        <span key={i} style={{ color: "red" }}>
+                          {char}
+                        </span>
+                      );
+                    })}
+                  </span>{" "}
                 </span>
               );
             }
-            return word + " ";
+            return (
+              <span key={index} style={{ color: "gray" }}>
+                {word + " "}
+              </span>
+            );
           })}
         </h1>
       </div>
-      <div>
-        <h1>current input: {userInput}</h1>
-      </div>
+      <h2>guide:</h2>
       <ul>
         <li>start typing</li>
         <li>press ENTER to reset</li>
