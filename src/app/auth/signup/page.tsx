@@ -1,23 +1,16 @@
 "use client";
 import { request } from "@/utils/axios";
-import { useRouter } from "next/router";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useToken } from "@/hooks/token";
 
 export default function Signup() {
-  //const router = useRouter();
   const { token, setToken } = useToken();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
-
-  /* useEffect(() => {
-    // Perform localStorage action
-    const item = localStorage.getItem("key");
-  }, []); */
 
   const handleSubmit = async () => {
     event?.preventDefault();
