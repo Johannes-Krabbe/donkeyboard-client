@@ -1,95 +1,78 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useEffect, useState } from "react";
+import randomWords from "random-words";
 
 export default function Home() {
+  const [wordcount, setwordcount] = useState(3);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [userInput, setUserInput] = useState("");
+  const [wordList, setWordList] = useState([""]);
+
+  const handleKeyDown = (event: any) => {
+    if (!document.hasFocus()) {
+      return;
+    }
+
+    if (event.key === "Backspace") {
+      setUserInput(userInput.slice(0, -1));
+    } else if (event.key === "Enter") {
+      setCurrentWordIndex(0);
+      setWordList(randomWords(wordcount));
+      setUserInput("");
+    } else if (event.key.length === 1) {
+      // This check is to ensure that only printable characters are added
+      setUserInput(userInput + event.key);
+    }
+  };
+
+  useEffect(() => {
+    setWordList(randomWords(wordcount));
+  }, [wordcount]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  });
+
+  useEffect(() => {
+    if (userInput != "" && userInput.trim() === wordList[currentWordIndex]) {
+      setCurrentWordIndex(currentWordIndex + 1);
+      setUserInput("");
+    }
+  }, [userInput, currentWordIndex, wordList]);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <main>
+      <div>
+        <h1>
+          {wordList.map((word, index) => {
+            if (index < currentWordIndex) {
+              return (
+                <span key={index} style={{ color: "green" }}>
+                  {word + " "}
+                </span>
+              );
+            } else if (index == currentWordIndex) {
+              return (
+                <span key={index}>
+                  <span style={{ textDecoration: "underline" }}>{word}</span>{" "}
+                </span>
+              );
+            }
+            return word + " ";
+          })}
+        </h1>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div>
+        <h1>current input: {userInput}</h1>
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <ul>
+        <li>start typing</li>
+        <li>press ENTER to reset</li>
+      </ul>
     </main>
-  )
+  );
 }
