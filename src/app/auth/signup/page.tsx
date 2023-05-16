@@ -1,6 +1,6 @@
 "use client";
 import { request } from "@/utils/axios";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useToken } from "@/hooks/token";
 
@@ -12,7 +12,9 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
 
-  const handleSubmit = async () => {
+  const { push } = useRouter();
+
+  const handleSubmit = async (event: any) => {
     event?.preventDefault();
     const values = {
       username: username,
@@ -26,16 +28,11 @@ export default function Signup() {
 
       console.log(res.data.token);
       setToken(res.data.token);
+      push("/");
     } catch {
       (err: any) => console.error(err);
     }
   };
-
-  useEffect(() => {
-    if (token) {
-      redirect("/");
-    }
-  });
 
   return (
     <main>

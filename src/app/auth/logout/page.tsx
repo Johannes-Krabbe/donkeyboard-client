@@ -1,13 +1,11 @@
 "use client";
-import { redirect } from "next/navigation";
 import { useEffect } from "react";
-import { useToken } from "@/hooks/token";
+import { useRouter } from "next/navigation";
 
 export default function Logout() {
-  const { token, setToken } = useToken();
-
-  if (token) {
+  const { push } = useRouter();
+  useEffect(() => {
     localStorage.removeItem("donkey-token");
-  }
-  useEffect(() => redirect("/"));
+    push("/");
+  });
 }
