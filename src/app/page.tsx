@@ -4,7 +4,6 @@ import randomWords from "random-words";
 
 export default function Home() {
   const [wordcount, setwordcount] = useState(3);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
   const [wordList, setWordList] = useState([""]);
 
@@ -16,13 +15,17 @@ export default function Home() {
     if (event.key === "Backspace") {
       setUserInput(userInput.slice(0, -1));
     } else if (event.key === "Enter") {
-      setCurrentWordIndex(0);
-      setWordList(randomWords(wordcount));
-      setUserInput("");
+      reset();
     } else if (event.key.length === 1) {
       // This check is to ensure that only printable characters are added
-      setUserInput(userInput + event.key);
+      if (!(event.key === " " && userInput.at(-1) == " "))
+        setUserInput(userInput + event.key);
     }
+  };
+
+  const reset = () => {
+    setWordList(randomWords(wordcount));
+    setUserInput("");
   };
 
   useEffect(() => {
@@ -38,37 +41,65 @@ export default function Home() {
   });
 
   useEffect(() => {
-    if (userInput != "" && userInput.trim() === wordList[currentWordIndex]) {
-      setCurrentWordIndex(currentWordIndex + 1);
-      setUserInput("");
+    if (userInput != "" && userInput === wordList.join(" ") + " ") {
+      reset();
     }
-  }, [userInput, currentWordIndex, wordList]);
+  });
 
   return (
     <main>
       <div>
         <h1>
           {wordList.map((word, index) => {
-            if (index < currentWordIndex) {
-              return (
-                <span key={index} style={{ color: "green" }}>
-                  {word + " "}
-                </span>
-              );
-            } else if (index == currentWordIndex) {
-              return (
-                <span key={index}>
-                  <span style={{ textDecoration: "underline" }}>{word}</span>{" "}
-                </span>
-              );
-            }
-            return word + " ";
+            return (
+              <span key={index}>
+                <span>
+                  {word.split("").map((char, i) => {
+                    if (
+                      !userInput
+                        .split(" ")
+                        [index]?.trim()
+                        .substring(i, i + 1)
+                    ) {
+                      if (userInput.split(" ").length <= index + 1) {
+                        return (
+                          <span key={i} style={{ color: "gray" }}>
+                            {char}
+                          </span>
+                        );
+                      } else {
+                        return (
+                          <span key={i} style={{ color: "red" }}>
+                            {char}
+                          </span>
+                        );
+                      }
+                    } else if (
+                      word.substring(i, i + 1) ===
+                      userInput
+                        .split(" ")
+                        [index]?.trim()
+                        .substring(i, i + 1)
+                    ) {
+                      return (
+                        <span key={i} style={{ color: "black" }}>
+                          {char}
+                        </span>
+                      );
+                    }
+                    return (
+                      <span key={i} style={{ color: "red" }}>
+                        {char}
+                      </span>
+                    );
+                  })}
+                </span>{" "}
+              </span>
+            );
           })}
         </h1>
       </div>
-      <div>
-        <h1>current input: {userInput}</h1>
-      </div>
+      <h2>guide:</h2>
       <ul>
         <li>start typing</li>
         <li>press ENTER to reset</li>
