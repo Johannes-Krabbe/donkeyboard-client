@@ -6,13 +6,12 @@ import { useToken } from "@/hooks/token";
 
 export default function Signup() {
   const { token, setToken } = useToken();
+  const { push } = useRouter();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
-
-  const { push } = useRouter();
 
   const handleSubmit = async (event: any) => {
     event?.preventDefault();
