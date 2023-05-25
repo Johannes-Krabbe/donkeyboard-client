@@ -1,6 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import randomWords from "random-words";
+import { Rubik } from "next/font/google";
+
+const rubik = Rubik({ subsets: ["latin"] });
 
 export default function Home() {
   const [wordcount, setwordcount] = useState(3);
