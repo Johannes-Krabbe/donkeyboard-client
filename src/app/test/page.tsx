@@ -16,6 +16,9 @@ import {
   InputGroup,
   InputRightElement,
   Box,
+  Alert,
+  AlertIcon,
+  Image,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
@@ -99,8 +102,21 @@ export default function LoginTest() {
   //const handleClick = () => setSubmitFormLoading(!submitFormLoading);
 
   const handleSubmit = async (event: any) => {
-    if (!submitFormLoading) {
-      setSubmitFormLoading(true);
+    let err;
+
+    if (!email) {
+      return (
+        <Stack>
+          <Alert>
+            <AlertIcon />
+            E-Mail is required!
+          </Alert>
+        </Stack>
+      );
+    } else if (!password) {
+      err = "Password is required!";
+    } else {
+      setSubmitFormLoading(!submitFormLoading);
       event?.preventDefault();
       const values = {
         email: email,
@@ -113,10 +129,8 @@ export default function LoginTest() {
         console.log(res.data.token);
         setToken(res.data.token);
         push("/");
-      } catch (e: any) {
-        setSubmitFormLoading(false);
-        setErrorMessage(e.response.data.message);
-        console.error(e);
+      } catch {
+        (err: any) => console.error(err);
       }
     }
   };
@@ -125,10 +139,10 @@ export default function LoginTest() {
     <ChakraProvider theme={theme}>
       <Center>
         <Flex
+          h="calc(100vh - 40px + 40px)"
+          w="100vw"
           justify="center"
           align="center"
-          h="100vh"
-          w="100vw"
           direction="column"
           bg="gray.700"
         >
@@ -141,6 +155,7 @@ export default function LoginTest() {
           >
             Donkeyboard
           </Heading>
+          <Image alt="donkeyboard logo" src={"logo_dark_yellow.png"} />
           <Flex>
             <Stack spacing={5} w={400} direction="column" justifyItems="center">
               <Input
@@ -161,7 +176,7 @@ export default function LoginTest() {
 
               <PasswordInput onChange={(e) => setPassword(e.target.value)} />
 
-              <Box onClick={handleSubmit}>
+              <Box onClick={handleSubmit} onSubmit={handleSubmit}>
                 {!submitFormLoading ? <SubmitForm /> : <SubmitFormLoading />}
               </Box>
               <div style={{ height: "24px" }}>
