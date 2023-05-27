@@ -18,9 +18,10 @@ import {
   Box,
   Alert,
   AlertIcon,
-  Image,
+  Img,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import Logo from "@/components/logo";
 
 function PasswordInput({
   onChange,
@@ -96,27 +97,14 @@ export default function LoginTest() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
   const [submitFormLoading, setSubmitFormLoading] = useState(false);
+  const [emailInvalid, setEmailInvalid] = useState(false);
 
   //const handleClick = () => setSubmitFormLoading(!submitFormLoading);
 
   const handleSubmit = async (event: any) => {
-    let err;
-
-    if (!email) {
-      return (
-        <Stack>
-          <Alert>
-            <AlertIcon />
-            E-Mail is required!
-          </Alert>
-        </Stack>
-      );
-    } else if (!password) {
-      err = "Password is required!";
-    } else {
-      setSubmitFormLoading(!submitFormLoading);
+    if (!submitFormLoading) {
+      setSubmitFormLoading(true);
       event?.preventDefault();
       const values = {
         email: email,
@@ -129,11 +117,34 @@ export default function LoginTest() {
         console.log(res.data.token);
         setToken(res.data.token);
         push("/");
-      } catch {
-        (err: any) => console.error(err);
+      } catch (e: any) {
+        setErrorMessage(e.response.data.message);
+        console.error(e);
+        setTimeout(() => {
+          setSubmitFormLoading(false);
+        }, 500);
       }
     }
   };
+
+  function handleCheckEmail(input: any) {
+    if (input.match("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$") != null) {
+      setEmail(input);
+      setErrorMessage("");
+      setEmailInvalid(false);
+    } else {
+      setErrorMessage("Please enter a valid email address");
+      setEmailInvalid(true);
+    }
+    checkEmptyEmail(input);
+  }
+
+  function checkEmptyEmail(input: any) {
+    if (input === "") {
+      setEmailInvalid(false);
+      setErrorMessage("");
+    }
+  }
 
   return (
     <ChakraProvider theme={theme}>
@@ -146,21 +157,19 @@ export default function LoginTest() {
           direction="column"
           bg="gray.700"
         >
-          <Heading
-            fontSize={100}
-            bgGradient="linear(to-l, #FFD500, #84FF00)"
-            bgClip="text"
-            mb={10}
-            alignSelf="center"
-          >
-            Donkeyboard
-          </Heading>
-          <Image alt="donkeyboard logo" src={"logo_dark_yellow.png"} />
+          <Logo />
           <Flex>
-            <Stack spacing={5} w={400} direction="column" justifyItems="center">
+            <Stack
+              spacing={5}
+              w={400}
+              mt={20}
+              direction="column"
+              justifyItems="center"
+            >
               <Input
-                isInvalid={true}
-                errorBorderColor="red.500"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                isInvalid={emailInvalid}
+                errorBorderColor="#BC2424"
                 bg="gray.600"
                 focusBorderColor="RGBA(0, 0, 0, 0.0)"
                 variant="filled"
@@ -171,7 +180,11 @@ export default function LoginTest() {
                 _hover={{ bg: "gray.500" }}
                 _placeholder={{ color: "gray.100" }}
                 required
-                onChange={(e) => setEmail(e.target.value)}
+                onBlur={(e) => handleCheckEmail(e.target.value)}
+                onFocus={(e) => {
+                  setEmailInvalid(false);
+                  setErrorMessage("");
+                }}
               />
 
               <PasswordInput onChange={(e) => setPassword(e.target.value)} />
@@ -180,7 +193,7 @@ export default function LoginTest() {
                 {!submitFormLoading ? <SubmitForm /> : <SubmitFormLoading />}
               </Box>
               <div style={{ height: "24px" }}>
-                <p style={{ color: "red" }}>{errorMessage ?? "&nbsp;&nbsp;"}</p>
+                <p style={{ color: "#BC2424" }}>{errorMessage ?? "adawd"}</p>
               </div>
             </Stack>
           </Flex>

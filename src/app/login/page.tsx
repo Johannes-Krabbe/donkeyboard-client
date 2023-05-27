@@ -3,27 +3,24 @@ import { request } from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useToken } from "@/hooks/token";
+import Image from "next/image";
 
-export default function Signup() {
+export default function Login() {
   const { token, setToken } = useToken();
   const { push } = useRouter();
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [bio, setBio] = useState("");
 
   const handleSubmit = async (event: any) => {
     event?.preventDefault();
     const values = {
-      username: username,
       email: email,
       password: password,
-      bio: bio,
     };
 
     try {
-      const res = await request.post(`/auth/signup`, values);
+      const res = await request.post(`/auth/login`, values);
 
       console.log(res.data.token);
       setToken(res.data.token);
@@ -36,20 +33,8 @@ export default function Signup() {
   return (
     <main>
       <form onSubmit={handleSubmit}>
-        <h1>Sign Up</h1>
+        <h1>Log In</h1>
         <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            /*pattern="[a-z0-9-_]"*/
-            minLength={3}
-            maxLength={32}
-            required
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <br />
           <label htmlFor="email">E-mail</label>
           <input
             type="text"
@@ -71,17 +56,7 @@ export default function Signup() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
-          <label htmlFor="bio">Bio</label>
-          <input
-            type="text"
-            name="bio"
-            id="bio"
-            defaultValue="Hello there! I am using Donkeyboard"
-            required
-            onChange={(e) => setBio(e.target.value)}
-          />
-          <br />
-          <input type="submit" value="Complete Sign Up" />
+          <input type="submit" value="Log In" />
         </div>
       </form>
     </main>
