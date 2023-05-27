@@ -3,6 +3,7 @@ import { request } from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useToken } from "@/hooks/token";
+import Image from "next/image";
 
 export default function Login() {
   const { token, setToken } = useToken();
@@ -58,6 +59,7 @@ export default function Login() {
           <input type="submit" value="Log In" />
         </div>
       </form>
+      <Image src="../../../../assets/dings.png" alt="logo" />
     </main>
   );
 }
