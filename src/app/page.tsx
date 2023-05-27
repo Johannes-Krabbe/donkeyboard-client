@@ -6,7 +6,7 @@ import { Rubik } from "next/font/google";
 const rubik = Rubik({ subsets: ["latin"] });
 
 export default function Home() {
-  const [wordcount, setwordcount] = useState(3);
+  const [wordcount, setwordcount] = useState(10);
   const [userInput, setUserInput] = useState("");
   const [wordList, setWordList] = useState([""]);
   const [timer, setTimer] = useState(0);

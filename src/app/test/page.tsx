@@ -92,27 +92,32 @@ export default function LoginTest() {
   const { push } = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [submitFormLoading, setSubmitFormLoading] = useState(false);
 
   //const handleClick = () => setSubmitFormLoading(!submitFormLoading);
 
   const handleSubmit = async (event: any) => {
-    setSubmitFormLoading(!submitFormLoading);
-    event?.preventDefault();
-    const values = {
-      email: email,
-      password: password,
-    };
+    if (!submitFormLoading) {
+      setSubmitFormLoading(true);
+      event?.preventDefault();
+      const values = {
+        email: email,
+        password: password,
+      };
 
-    try {
-      const res = await request.post(`/auth/login`, values);
+      try {
+        const res = await request.post(`/auth/login`, values);
 
-      console.log(res.data.token);
-      setToken(res.data.token);
-      push("/");
-    } catch {
-      (err: any) => console.error(err);
+        console.log(res.data.token);
+        setToken(res.data.token);
+        push("/");
+      } catch (e: any) {
+        setSubmitFormLoading(false);
+        setErrorMessage(e.response.data.message);
+        console.error(e);
+      }
     }
   };
 
@@ -139,6 +144,8 @@ export default function LoginTest() {
           <Flex>
             <Stack spacing={5} w={400} direction="column" justifyItems="center">
               <Input
+                isInvalid={true}
+                errorBorderColor="red.500"
                 bg="gray.600"
                 focusBorderColor="RGBA(0, 0, 0, 0.0)"
                 variant="filled"
@@ -157,6 +164,9 @@ export default function LoginTest() {
               <Box onClick={handleSubmit}>
                 {!submitFormLoading ? <SubmitForm /> : <SubmitFormLoading />}
               </Box>
+              <div style={{ height: "24px" }}>
+                <p style={{ color: "red" }}>{errorMessage ?? "&nbsp;&nbsp;"}</p>
+              </div>
             </Stack>
           </Flex>
         </Flex>

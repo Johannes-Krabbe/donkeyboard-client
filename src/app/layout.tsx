@@ -1,6 +1,7 @@
-import { Rubik } from "next/font/google";
+import { Fragment_Mono, Rubik } from "next/font/google";
 
 const rubik = Rubik({ subsets: ["latin"] });
+const fragment = Fragment_Mono({ weight: "400", subsets: ["latin"] });
 
 export const metadata = {
   title: "Donkeyboard",
@@ -14,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={rubik.className}>{children}</body>
+      <body className={fragment.className}>{children}</body>
     </html>
   );
 }
