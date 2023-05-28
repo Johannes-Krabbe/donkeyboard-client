@@ -53,6 +53,7 @@ export default function Keycap({
         width={clicked ? 90 : 100}
         height={clicked ? 90.2 : 101}
         draggable={false}
+        style={{ transitionDuration: "80ms" }}
       />
     </Flex>
   );
