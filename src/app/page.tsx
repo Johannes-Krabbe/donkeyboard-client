@@ -8,6 +8,7 @@ import { Timer } from "@/components/game/time";
 import { Words } from "@/components/game/words";
 import { Button } from "@chakra-ui/react";
 import ColorModeToggle from "@/components/colorModeToggle";
+import { theme } from "./theme";
 
 export default function Home() {
   const [wordcount, setWordcount] = useState(5);
@@ -49,7 +50,9 @@ export default function Home() {
 
   return (
     <main>
-      <Button>This is a button</Button>
+      <Button bg={theme.components.Button.baseStyle.bg}>
+        This is a button
+      </Button>
       <ColorModeToggle />
       <Words wordList={wordList} input={input} />
       <Timer timer={timer} />

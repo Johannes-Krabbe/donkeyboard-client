@@ -5,11 +5,11 @@ const config: ThemeConfig = {
   useSystemColorMode: false,
 };
 
-const theme = extendTheme({
+export const theme = extendTheme({
   components: {
     Button: {
       baseStyle: {
-        margin: 40,
+        bg: "gray",
       },
     },
   },
@@ -52,5 +52,3 @@ const theme = extendTheme({
     },
   },
 });
-
-export default theme;
