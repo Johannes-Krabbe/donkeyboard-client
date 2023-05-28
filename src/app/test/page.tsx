@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Logo from "@/components/logo";
-import Keycap from "@/components/keycap";
 
 function PasswordInput({
   onChange,
@@ -87,7 +86,7 @@ function SubmitFormLoading() {
   );
 }
 
-export default function LoginTest() {
+export default function Login() {
   const { token, setToken } = useToken();
   const { push } = useRouter();
   const [email, setEmail] = useState("");
@@ -95,9 +94,6 @@ export default function LoginTest() {
   const [errorMessage, setErrorMessage] = useState("");
   const [submitFormLoading, setSubmitFormLoading] = useState(false);
   const [emailInvalid, setEmailInvalid] = useState(false);
-  const [rainbowOn, setRainbowOn] = useState(false);
-
-  //const handleClick = () => setSubmitFormLoading(!submitFormLoading);
 
   async function handleSubmit(event: any) {
     if (!submitFormLoading) {

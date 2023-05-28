@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Img } from "@chakra-ui/react";
 
 interface KeycapProps {
@@ -13,10 +13,18 @@ export default function Keycap({
   clickable = false,
 }: KeycapProps) {
   const [clicked, setClicked] = useState(false);
-  const thocc = new Audio("assets/thocc.mp3");
+  const [thocc, setThocc] = useState<HTMLAudioElement | null>(null);
 
-  thocc.volume = 0.5;
-  thocc.playbackRate = 2;
+  function resetAudio() {
+    const audio = new Audio("assets/thocc.mp3");
+    audio.volume = 0.5;
+    audio.playbackRate = 2;
+    setThocc(audio);
+  }
+
+  useEffect(() => {
+    resetAudio();
+  }, []);
 
   return (
     <Flex
@@ -26,7 +34,8 @@ export default function Keycap({
       w={101}
       onMouseDown={() => {
         if (clickable) {
-          thocc.play();
+          thocc?.play();
+          resetAudio();
           setClicked(true);
         }
       }}
