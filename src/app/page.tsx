@@ -1,19 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
 import randomWords from "random-words";
-import { Rubik } from "next/font/google";
-
-const rubik = Rubik({ subsets: ["latin"] });
+import { CurrentScore, Highscore } from "@/components/game/score";
 
 export default function Home() {
-  const [wordcount, setwordcount] = useState(10);
+  const [wordcount, setwordcount] = useState(4);
   const [userInput, setUserInput] = useState("");
   const [wordList, setWordList] = useState([""]);
   const [timer, setTimer] = useState(0);
   const [referenceTime, setReferenceTime] = useState(Date.now());
   const [timerActive, setTimerActive] = useState(false);
   const [currentScore, setCurrentScore] = useState(0);
-  const [highscore, setHighscore] = useState(0);
 
   const handleKeyDown = (event: any) => {
     if (!document.hasFocus()) {
@@ -66,11 +63,8 @@ export default function Home() {
       const time = timer / 1000 / 60;
       console.log(time);
       setCurrentScore(wordcount / time);
-      if (currentScore > highscore) {
-        setHighscore(currentScore);
-      }
     }
-  }, [userInput, wordList, currentScore, highscore, timer, wordcount]);
+  }, [userInput, wordList, currentScore, timer, wordcount]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -140,8 +134,8 @@ export default function Home() {
         </h1>
       </div>
       <h2>Time: {(timer / 1000).toFixed(3)}</h2>
-      <h2>Current Score: {currentScore.toFixed(1)} WPM</h2>
-      <h2>Highscore: {highscore.toFixed(1)} WPM</h2>
+      <CurrentScore currentScore={currentScore} />
+      <Highscore currentScore={currentScore} />
       <h2>guide:</h2>
       <ul>
         <li>start typing</li>
