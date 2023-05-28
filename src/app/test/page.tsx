@@ -3,7 +3,7 @@ import { request } from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import { useState, ChangeEvent } from "react";
 import { useToken } from "@/hooks/token";
-import { theme } from "../theme";
+import theme from "../theme";
 import {
   ChakraProvider,
   Stack,
