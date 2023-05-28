@@ -1,14 +1,10 @@
-import { Button, ButtonProps, Flex, useColorMode } from "@chakra-ui/react";
+import { Button, ButtonProps, useColorMode } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
 export default function ColorModeToggle(props: ButtonProps) {
   const { colorMode, toggleColorMode } = useColorMode();
-  return (
-    /**
-     * Ideally, only the button component should be used (without Flex).
-     * Props compatible with <Button /> are supported.
-     */
 
+  return (
     <Button
       aria-label="Toggle Color Mode"
       onClick={toggleColorMode}

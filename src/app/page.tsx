@@ -6,9 +6,9 @@ import { useRandomWords } from "@/hooks/randomWords";
 import { useTimer } from "@/hooks/timer";
 import { Timer } from "@/components/game/time";
 import { Words } from "@/components/game/words";
-import { Button } from "@chakra-ui/react";
-import ColorModeToggle from "@/components/colorModeToggle";
+import { Button, useColorMode } from "@chakra-ui/react";
 import { theme } from "./theme";
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   const [wordcount, setWordcount] = useState(5);
@@ -50,10 +50,8 @@ export default function Home() {
 
   return (
     <main>
-      <Button bg={theme.components.Button.baseStyle.bg}>
-        This is a button
-      </Button>
-      <ColorModeToggle />
+      <Navbar />
+      <Button bg="primary">This is a button</Button>
       <Words wordList={wordList} input={input} />
       <Timer timer={timer} />
       <CurrentScore currentScore={currentScore} />

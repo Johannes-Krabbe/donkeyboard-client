@@ -5,7 +5,6 @@ import { useState, ChangeEvent } from "react";
 import { useToken } from "@/hooks/token";
 import { theme } from "../theme";
 import {
-  ChakraProvider,
   Stack,
   Input,
   Center,
@@ -14,9 +13,11 @@ import {
   InputGroup,
   InputRightElement,
   Box,
+  useColorMode,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Logo from "@/components/logo";
+import Navbar from "@/components/navbar";
 
 function PasswordInput({
   onChange,
@@ -140,59 +141,61 @@ export default function Login() {
   }
 
   return (
-    <Center>
-      <Flex
-        h="calc(100vh - 40px + 40px)"
-        w="100vw"
-        justify="center"
-        align="center"
-        direction="column"
-        bg="gray.700"
-      >
-        <Logo />
-        <Flex>
-          <Stack
-            spacing={5}
-            w={400}
-            mt={20}
-            direction="column"
-            justifyItems="center"
-          >
-            <Input
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              isInvalid={emailInvalid}
-              errorBorderColor="#BC2424"
-              bg="gray.600"
-              focusBorderColor="RGBA(0, 0, 0, 0.0)"
-              variant="filled"
-              placeholder="Email"
-              type="email"
-              textColor="white"
-              _focus={{ bg: "gray.500" }}
-              _hover={{ bg: "gray.500" }}
-              _placeholder={{ color: "gray.100" }}
-              required
-              onBlur={(e) => handleCheckEmail(e.target.value)}
-              onFocus={(e) => {
-                setEmailInvalid(false);
-                setErrorMessage("");
-              }}
-            />
+    <main>
+      <Center>
+        <Flex
+          h="calc(100vh - 80px + 80px)"
+          w="100vw"
+          justify="center"
+          align="center"
+          direction="column"
+          bg="gray.700"
+        >
+          <Logo />
+          <Flex>
+            <Stack
+              spacing={5}
+              w={400}
+              mt={20}
+              direction="column"
+              justifyItems="center"
+            >
+              <Input
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                isInvalid={emailInvalid}
+                errorBorderColor="#BC2424"
+                bg="gray.600"
+                focusBorderColor="RGBA(0, 0, 0, 0.0)"
+                variant="filled"
+                placeholder="Email"
+                type="email"
+                textColor="white"
+                _focus={{ bg: "gray.500" }}
+                _hover={{ bg: "gray.500" }}
+                _placeholder={{ color: "gray.100" }}
+                required
+                onBlur={(e) => handleCheckEmail(e.target.value)}
+                onFocus={(e) => {
+                  setEmailInvalid(false);
+                  setErrorMessage("");
+                }}
+              />
 
-            <PasswordInput onChange={(e) => setPassword(e.target.value)} />
+              <PasswordInput onChange={(e) => setPassword(e.target.value)} />
 
-            <Box onClick={handleSubmit} onSubmit={handleSubmit}>
-              {!submitFormLoading ? <SubmitForm /> : <SubmitFormLoading />}
-            </Box>
-            <div style={{ height: "24px" }}>
-              <p style={{ color: "#BC2424" }}>
-                {errorMessage ??
-                  "Something went wrong. Please try again later."}
-              </p>
-            </div>
-          </Stack>
+              <Box onClick={handleSubmit} onSubmit={handleSubmit}>
+                {!submitFormLoading ? <SubmitForm /> : <SubmitFormLoading />}
+              </Box>
+              <div style={{ height: "24px" }}>
+                <p style={{ color: "#BC2424" }}>
+                  {errorMessage ??
+                    "Something went wrong. Please try again later."}
+                </p>
+              </div>
+            </Stack>
+          </Flex>
         </Flex>
-      </Flex>
-    </Center>
+      </Center>
+    </main>
   );
 }

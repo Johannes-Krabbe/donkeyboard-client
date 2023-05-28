@@ -1,7 +1,17 @@
-export default function Navbar() {
+import { Box, Flex, useColorMode } from "@chakra-ui/react";
+import ColorModeToggle from "./colorModeToggle";
+
+interface NavbarProps {
+  height?: 40;
+}
+
+export default function Navbar({ height }: NavbarProps) {
+  const { colorMode, setColorMode } = useColorMode();
   return (
-    <div style={{ height: 40 }}>
-      <h1>Hallo</h1>
-    </div>
+    <Flex h={height} bg="background" direction="row-reverse">
+      <Box>
+        <ColorModeToggle m={5} />
+      </Box>
+    </Flex>
   );
 }
