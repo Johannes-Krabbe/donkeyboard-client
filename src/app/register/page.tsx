@@ -45,7 +45,7 @@ export default function Signup() {
             type="text"
             name="username"
             id="username"
-            /*pattern="[a-z0-9-_]"*/
+            pattern="[a-z0-9-_]{3,32}$"
             minLength={3}
             maxLength={32}
             required
