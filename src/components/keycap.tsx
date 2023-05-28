@@ -52,6 +52,7 @@ export default function Keycap({
         alt="Logo Keycap Letter"
         width={clicked ? 90 : 100}
         height={clicked ? 90.2 : 101}
+        draggable={false}
       />
     </Flex>
   );
