@@ -1,4 +1,5 @@
 import { Fragment_Mono, Rubik } from "next/font/google";
+import { Providers } from "./providers";
 
 const rubik = Rubik({ subsets: ["latin"] });
 const fragment = Fragment_Mono({ weight: "400", subsets: ["latin"] });
@@ -15,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={fragment.className}>{children}</body>
+      <body className={fragment.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import randomWords from "random-words";
 import { Rubik } from "next/font/google";
+import { Button } from "@chakra-ui/react";
+import ColorModeToggle from "@/components/colorModeToggle";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -88,6 +90,8 @@ export default function Home() {
 
   return (
     <main>
+      <Button>This is a button</Button>
+      <ColorModeToggle />
       <div>
         <h1>
           {wordList.map((word, index) => {

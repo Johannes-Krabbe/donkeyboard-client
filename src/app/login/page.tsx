@@ -3,7 +3,7 @@ import { request } from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import { useState, ChangeEvent } from "react";
 import { useToken } from "@/hooks/token";
-import { theme } from "../theme";
+import theme from "../theme";
 import {
   ChakraProvider,
   Stack,
@@ -186,7 +186,10 @@ export default function Login() {
                 {!submitFormLoading ? <SubmitForm /> : <SubmitFormLoading />}
               </Box>
               <div style={{ height: "24px" }}>
-                <p style={{ color: "#BC2424" }}>{errorMessage ?? "adawd"}</p>
+                <p style={{ color: "#BC2424" }}>
+                  {errorMessage ??
+                    "Something went wrong. Please try again later."}
+                </p>
               </div>
             </Stack>
           </Flex>
