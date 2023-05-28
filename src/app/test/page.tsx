@@ -1,7 +1,7 @@
 "use client";
 import { request } from "@/utils/axios";
 import { useRouter } from "next/navigation";
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { useToken } from "@/hooks/token";
 import { theme } from "../theme";
 import {
@@ -11,17 +11,13 @@ import {
   Center,
   Flex,
   Button,
-  FormControl,
-  Heading,
   InputGroup,
   InputRightElement,
   Box,
-  Alert,
-  AlertIcon,
-  Img,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Logo from "@/components/logo";
+import Keycap from "@/components/keycap";
 
 function PasswordInput({
   onChange,
@@ -99,10 +95,11 @@ export default function LoginTest() {
   const [errorMessage, setErrorMessage] = useState("");
   const [submitFormLoading, setSubmitFormLoading] = useState(false);
   const [emailInvalid, setEmailInvalid] = useState(false);
+  const [rainbowOn, setRainbowOn] = useState(false);
 
   //const handleClick = () => setSubmitFormLoading(!submitFormLoading);
 
-  const handleSubmit = async (event: any) => {
+  async function handleSubmit(event: any) {
     if (!submitFormLoading) {
       setSubmitFormLoading(true);
       event?.preventDefault();
@@ -125,7 +122,7 @@ export default function LoginTest() {
         }, 500);
       }
     }
-  };
+  }
 
   function handleCheckEmail(input: any) {
     if (input.match("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$") != null) {
