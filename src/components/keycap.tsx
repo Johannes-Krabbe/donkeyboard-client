@@ -49,7 +49,7 @@ export default function Keycap({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`/assets/keycaps/${rainbow ? "rainbow" : "unicolor"}/${name}.png`}
-        alt="Logo Keycap Letter"
+        alt={name}
         width={clicked ? 90 : 100}
         height={clicked ? 90.2 : 101}
         draggable={false}
