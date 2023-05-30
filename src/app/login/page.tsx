@@ -142,9 +142,10 @@ export default function Login() {
 
   return (
     <main>
+      <Navbar />
       <Center>
         <Flex
-          h="calc(100vh - 80px + 80px)"
+          h="calc(100vh - 80px)"
           w="100vw"
           justify="center"
           align="center"

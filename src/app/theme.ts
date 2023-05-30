@@ -1,25 +1,14 @@
-import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
-import { mode } from "@chakra-ui/theme-tools";
-
-const config: ThemeConfig = {
-  initialColorMode: "dark",
-  useSystemColorMode: false,
-};
+import { extendTheme } from "@chakra-ui/react";
 
 const styles = {
   global: {
-    h1: {
-      color: "red",
-    },
+    h1: {},
   },
 };
 
 const components = {
-  Button: {},
-  h1: {
-    baseStyle: {
-      margin: 40,
-    },
+  Button: {
+    baseStyle: {},
   },
 };
 
@@ -31,7 +20,9 @@ const fonts = {
 const colors = {
   primary: "#FFCC12",
   secondary: "#7928CA",
-  background: mode("gray.700", "white"),
+  background: "gray.700",
+
+  primary_hover: "#CCA000",
 
   gray: {
     900: "#141414",
