@@ -1,7 +1,9 @@
+import { Box } from "@chakra-ui/react";
+
 export function Timer({ timer }: { timer: number }) {
   return (
     <>
-      <h2>Time: {(timer / 1000).toFixed(3)}</h2>
+      <Box color="#727272">{(timer / 1000).toFixed(3)}</Box>
     </>
   );
 }

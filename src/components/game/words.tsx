@@ -1,4 +1,5 @@
 import { Letter } from "./letter";
+import { Box, Wrap } from "@chakra-ui/react";
 
 export function Words({
   wordList,
@@ -9,18 +10,14 @@ export function Words({
 }) {
   return (
     <>
-      <div>
-        <h1>
-          <span>
-            {wordList
-              .join(" ")
-              .split("")
-              .map((char, i) => {
-                return <Letter key={i} char={char} inputChar={input[i]} />;
-              })}
-          </span>{" "}
-        </h1>
-      </div>
+      <Box>
+        {wordList
+          .join(" ")
+          .split("")
+          .map((char, i) => {
+            return <Letter key={i} char={char} inputChar={input[i]} />;
+          })}
+      </Box>{" "}
     </>
   );
 }

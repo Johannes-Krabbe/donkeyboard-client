@@ -1,9 +1,17 @@
 import { useScore } from "@/hooks/score";
+import { Heading, Box } from "@chakra-ui/react";
 
 export function CurrentScore({ currentScore }: { currentScore: number }) {
   return (
     <>
-      <h2>Current Score: {currentScore.toFixed(1)} WPM</h2>
+      <Heading
+        fontSize={100}
+        letterSpacing={0}
+        color="#444444"
+        fontWeight={200}
+      >
+        {currentScore.toFixed(0)}
+      </Heading>
     </>
   );
 }
@@ -17,7 +25,9 @@ export function Highscore({ currentScore }: { currentScore: number }) {
 
   return (
     <>
-      <h2>Highscore: {score.highscore.toFixed(1)} WPM</h2>
+      <Box color="#858585" fontSize={20}>
+        {score.highscore.toFixed(0)} WPM
+      </Box>
     </>
   );
 }

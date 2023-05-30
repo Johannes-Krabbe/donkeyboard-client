@@ -20,6 +20,10 @@ const fonts = {
 const colors = {
   primary: "#FFCC12",
   secondary: "#7928CA",
+  gametext_neutral: "#676767",
+  gametext_corrent: "#BDBDBD",
+  gametext_wrong: "#8A2020",
+
   background: "gray.700",
 
   primary_hover: "#CCA000",
