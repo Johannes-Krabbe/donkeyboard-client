@@ -33,6 +33,7 @@ export default function Home() {
 
   useEffect(() => {
     if (input != "" && input === wordList.join(" ") + " ") {
+      clearInput();
       reset();
     }
   });
