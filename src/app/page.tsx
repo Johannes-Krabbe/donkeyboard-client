@@ -68,8 +68,10 @@ export default function Home() {
               </Box>
             </Flex>
             <Flex justify="center" mt={12}>
-              <Box bg="#363636" rounded={10} w="fit-content" px={24} py={3}>
-                <Timer timer={timer} />
+              <Box bg="#363636" rounded={10} w={240} px={24} py={3}>
+                <Box w="fit-content" justifyContent="center">
+                  <Timer timer={timer} />
+                </Box>
               </Box>
             </Flex>
 
