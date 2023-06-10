@@ -10,10 +10,13 @@ export default function Navbar({ height }: NavbarProps) {
   const { push } = useRouter();
   const { token, setToken } = useToken();
 
-  console.log(token);
-
   const navbarButtonmarginY = 5;
   const navbarButtonmarginRight = 5;
+
+  function logout() {
+    localStorage.removeItem("donkey-token");
+    location.reload();
+  }
 
   return (
     <Flex h={height ?? 20} bg="gray.700" justify="space-between">
@@ -54,7 +57,18 @@ export default function Navbar({ height }: NavbarProps) {
           </Box>
         </Flex>
       ) : (
-        <></>
+        <Flex justify="flex-end">
+          <Box>
+            <Button
+              my={navbarButtonmarginY}
+              mr={navbarButtonmarginRight}
+              bg={"gray.100"}
+              onClick={(e) => logout()}
+            >
+              Log Out
+            </Button>
+          </Box>
+        </Flex>
       )}
     </Flex>
   );
