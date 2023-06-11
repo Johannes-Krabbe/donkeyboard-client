@@ -93,7 +93,7 @@ export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [bio, setBio] = useState("");
+  const [bio, setBio] = useState("Hello there! I am using Donkeyboard");
   const [errorMessage, setErrorMessage] = useState("");
   const [submitFormLoading, setSubmitFormLoading] = useState(false);
   const [emailInvalid, setEmailInvalid] = useState(false);
@@ -126,7 +126,10 @@ export default function Signup() {
   }
 
   function handleCheckEmail(input: any) {
-    if (input.match("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$", "u") != null) {
+    if (
+      input.match("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", "u") !=
+      null
+    ) {
       setEmail(input);
       setErrorMessage("");
       setEmailInvalid(false);
@@ -182,7 +185,7 @@ export default function Signup() {
               <Input
                 placeholder="Email"
                 type="email"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
                 isInvalid={emailInvalid}
                 errorBorderColor="#BC2424"
                 bg="gray.600"
