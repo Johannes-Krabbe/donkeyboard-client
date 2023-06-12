@@ -67,7 +67,7 @@ function SubmitForm() {
       _active={{ bg: "gray.800" }}
       textColor="white"
     >
-      Log In
+      Register
     </Button>
   );
 }
@@ -81,7 +81,7 @@ function SubmitFormLoading() {
       _hover={{ bg: "gray.900" }}
       textColor="white"
     >
-      Log In
+      Register
     </Button>
   );
 }
