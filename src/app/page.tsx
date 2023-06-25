@@ -44,8 +44,9 @@ export default function Home() {
 
       // calc wpm
       const time = timer / 1000 / 60;
-      console.log(time);
-      setCurrentScore(wordcount / time);
+      const normalizedWordCount: number = wordList.join(" ").length / 5;
+      console.log(normalizedWordCount);
+      setCurrentScore(normalizedWordCount / time);
     }
   }, [input, wordList, currentScore, timer, stopTimer, wordcount]);
 
