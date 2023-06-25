@@ -39,13 +39,23 @@ export default function Home() {
   });
 
   useEffect(() => {
-    if (input != "" && input === wordList.join(" ")) {
+    if (input != "" && input.length === wordList.join(" ").length) {
       stopTimer();
+      // calc err %
+      let correctLetters = 0;
+      const joinedWordListArray = wordList.join(" ").split("");
+      joinedWordListArray.forEach((l, i) => {
+        if (l === input.split("")[i]) {
+          correctLetters++;
+        }
+      });
+      // this is more like a correct percentage not error percentage. Just calc 1 - errorPercentage if you want a correct error Percentage
+      const errorPercentage = correctLetters / joinedWordListArray.length;
+      console.log("errorPercentage: " + errorPercentage);
 
       // calc wpm
       const time = timer / 1000 / 60;
       const normalizedWordCount: number = wordList.join(" ").length / 5;
-      console.log(normalizedWordCount);
       setCurrentScore(normalizedWordCount / time);
     }
   }, [input, wordList, currentScore, timer, stopTimer, wordcount]);
